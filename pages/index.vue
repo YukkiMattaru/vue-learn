@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <Header />
     <TodoInput @change-search="changeSearch" @add-todo="addTodo" />
     <TodoList @removeTodo="removeTodo" />
   </div>
@@ -8,7 +7,6 @@
 
 <script>
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "@/components/Header";
 import TodoInput from "@/components/TodoInput";
 import TodoList from "@/components/TodoList";
 import {store} from "@/store/index";
@@ -16,7 +14,6 @@ export default {
   name: "App",
   store,
   components: {
-    Header,
     TodoInput,
     TodoList,
   },
