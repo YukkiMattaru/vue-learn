@@ -4,10 +4,10 @@
       <input
         id="input-todo"
         v-model="newTodo"
-        v-on:input="changeSearch"
         :placeholder="
           placeHolders[Math.floor(Math.random() * placeHolders.length)]
         "
+        @input="changeSearch"
       />
       <button type="submit" class="btn btn-primary btn-sm">Добавить</button>
     </form>
@@ -43,13 +43,13 @@ export default {
           name: this.newTodo,
           completed: false,
         };
-        this.$emit("add-todo", newTodo);
-        this.$emit("change-search", "");
+        this.$store.commit("ADD_TODO", newTodo);
+        this.$store.commit("SET_SEARCH", "");
         this.newTodo = "";
       }
     },
     changeSearch() {
-      this.$emit("change-search", this.newTodo);
+      this.$store.commit("SET_SEARCH", this.newTodo);
     },
   },
 };

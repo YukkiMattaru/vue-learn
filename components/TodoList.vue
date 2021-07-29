@@ -2,25 +2,40 @@
   <section class="todo__list">
     <h2>Мои дела</h2>
     <ul>
-      <TodoItem v-bind:search="search" v-bind:key="todo.id" v-bind:index="index" v-on:remove-todo="removeTodo" v-bind:todo="todo" v-for="(todo,index) in todos" />
+      <TodoItem
+        v-for="(todo, index) in todos"
+        :key="todo.id"
+        :index="index"
+        :todo="todo"
+        @remove-todo="removeTodo"
+      />
     </ul>
-    <p v-if="todos.some(t => t.name === 'dev')">Todos: {{todos}} Search: {{search}}</p>
+    <p v-if="todos.some((t) => t.name === 'dev')">
+      Todos: {{ todos }} Search: {{ search }}
+    </p>
   </section>
 </template>
 
 <script>
-import TodoItem from "@/components/TodoItem";
+import TodoItem from '@/components/TodoItem'
 export default {
-  props: ["todos", "search"],
   components: {
     TodoItem,
   },
+  computed: {
+    todos() {
+      return this.$store.getters.todos;
+    },
+    search() {
+      return this.$store.getters.search;
+    }
+  },
   methods: {
     removeTodo(id) {
-      this.$emit("removeTodo", id);
+      this.$store.commit('DELETE_TODO', id)
     },
   },
-};
+}
 </script>
 
 <style scoped>
